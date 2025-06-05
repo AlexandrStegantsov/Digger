@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/MainMenu.unity
+    guid: 725898426641e58438d2100cdbf0bd71
+  - enabled: 1
+    path: Assets/HeneGames/Simple Airplane Controller/Example scenes/Example scene
+      airplane 2.unity
+    guid: 56039b26df01a454eb4b562695b5abe4
+  m_configObjects: {}
