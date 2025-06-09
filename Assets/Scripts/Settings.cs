@@ -2,24 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Settings : MonoBehaviour
 {
    [SerializeField] private GameObject Controls;
    [SerializeField] private GameObject Music;
    private Menu menu;
-   private void Start()
+   private PlayerActions inputActions;
+   private void OnEnable()
    {
+      inputActions = new PlayerActions();
       menu = Menu.Instance;
+      inputActions.Enable();
+      inputActions.UI.Next.performed += NextTab;
+      inputActions.UI.Back.performed += PreviousTab;
    }
-
-   private void NextTab()
+   private void OnDisable()
+   {
+      inputActions.UI.Next.performed -= NextTab;
+      inputActions.UI.Back.performed -= PreviousTab;
+      inputActions.Disable();
+   }
+   private void NextTab(InputAction.CallbackContext context)
    {
       Music.SetActive(false);
       Controls.SetActive(true);
    }
 
-   private void PreviousTab()
+   private void PreviousTab(InputAction.CallbackContext context)
    {
       Music.SetActive(true);
       Controls.SetActive(false);
@@ -29,4 +40,5 @@ public class Settings : MonoBehaviour
    {
       menu.MenuOpen();
    }
+   
 }

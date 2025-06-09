@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class JetEnemyAI : MonoBehaviour
@@ -25,6 +26,7 @@ public class JetEnemyAI : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         PickNewTactic();
     }
 
@@ -98,14 +100,24 @@ public class JetEnemyAI : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = BulletPool.Instance.GetBullet();
+        bullet.transform.position = firePoint.position;
+        bullet.transform.rotation = firePoint.rotation;
+
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.velocity = firePoint.forward * 1000f;
         }
 
-        Destroy(bullet, 5f); 
-        
+        // Вернуть пулю через 5 секунд
+        StartCoroutine(ReturnBulletAfterDelay(bullet, 5f));
     }
+
+    private IEnumerator ReturnBulletAfterDelay(GameObject bullet, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        BulletPool.Instance.ReturnBullet(bullet);
+    }
+
 }
