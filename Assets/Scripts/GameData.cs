@@ -27,6 +27,16 @@ public class GameData : MonoBehaviour
         Money = PlayerPrefs.GetInt("Money" , 0);
     }
 
+    public void SaveUpgrade(WeaponType weapon, int level)
+    {
+        PlayerPrefs.SetInt("Upgrade_" + weapon.ToString(), level);
+    }
+
+    public int LoadUpgrade(WeaponType weapon)
+    {
+        return PlayerPrefs.GetInt("Upgrade_" + weapon.ToString(), 0); 
+    }
+    
     public int GetMoney()
     {
         return Money;

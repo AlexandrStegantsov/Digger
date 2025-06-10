@@ -24,4 +24,5 @@ public class TargetHighlighter : MonoBehaviour
 
         currentTarget = closestEnemy;
     }
+    
 }
